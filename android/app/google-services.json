@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "899460892324",
+    "project_id": "mynotes-by-ikram",
+    "storage_bucket": "mynotes-by-ikram.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899460892324:android:1a4b905dce8bdb2f2d0831",
+        "android_client_info": {
+          "package_name": "bd.pixolity.mynotes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXbw3ldOql54VguOQIdNOFBQvDY07vdWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
