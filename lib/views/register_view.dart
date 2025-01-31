@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as devtools show log;
-import 'package:mynotes/constants/routes.dart'; 
-
+import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -64,15 +63,27 @@ class _RegisterViewState extends State<RegisterView> {
                   email: email,
                   password: password,
                 );
+                final user = FirebaseAuth.instance.currentUser;
+                user?.sendEmailVerification();
+                Navigator.of(context).pushNamed(verifyEmailRoute);
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
-                  devtools.log(
-                      'The password provided is too weak. It should be at least 6 characters long.');
+                  await showErrorDialog(context, 'Weak Password');
                 } else if (e.code == 'email-already-in-use') {
-                  devtools.log('Email is Already in use');
+                  await showErrorDialog(context, 'email-already-in-use');
                 } else if (e.code == 'invalid-email') {
-                  devtools.log('Invalid Email');
+                  await showErrorDialog(context, 'Invalid Email');
+                } else {
+                  await showErrorDialog(
+                    context,
+                    'Error: ${e.code}',
+                  );
                 }
+              } catch (e) {
+                await showErrorDialog(
+                    context,
+                    e.toString(),
+                  );
               }
             },
             child: Text('Register'),
@@ -80,9 +91,9 @@ class _RegisterViewState extends State<RegisterView> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
-              loginRoute,
-              (route) => false,
-            );
+                loginRoute,
+                (route) => false,
+              );
             },
             child: const Text("Already Registered? Login Here"),
           )
