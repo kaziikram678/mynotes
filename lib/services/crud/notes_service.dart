@@ -11,12 +11,18 @@ class NotesService {
   List<DatabaseNote> _notes = [];
 
   static final NotesService _shared = NotesService._sharedInstance();
-  NotesService._sharedInstance();
+  NotesService._sharedInstance() {
+    _notesStreamController = StreamController<List<DatabaseNote>>.broadcast(
+      onListen: () {
+        _notesStreamController.sink.add(_notes);
+      },
+    );
+  }
   factory NotesService() => _shared;
 
-  final _notesStreamController = StreamController<List<Database>>.broadcast();
+  late final StreamController<List<DatabaseNote>> _notesStreamController;
 
-  Stream<List<Database>> get allNotes => _notesStreamController.stream;
+  Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
   Future<DatabaseUser> getOrCreateUser({
     required String email,
@@ -36,7 +42,7 @@ class NotesService {
   Future<void> _cacheNotes() async {
     final allNotes = await getAllNotes();
     _notes = allNotes.toList();
-    _notesStreamController.add(_notes.cast<Database>());
+    _notesStreamController.add(_notes.cast<DatabaseNote>());
   }
 
   Future<DatabaseNote> updateNote({
@@ -62,7 +68,7 @@ class NotesService {
       final updatedNote = await getNote(id: notes.id);
       _notes.removeWhere((note) => note.id == updatedNote.id);
       _notes.add(updatedNote);
-      _notesStreamController.add(_notes.cast<Database>());
+      _notesStreamController.add(_notes.cast<DatabaseNote>());
       return updatedNote;
     }
   }
@@ -91,7 +97,7 @@ class NotesService {
       final note = DatabaseNote.fromRow(notes.first);
       _notes.removeWhere((note) => note.id == id);
       _notes.add(note);
-      _notesStreamController.add(_notes.cast<Database>());
+      _notesStreamController.add(_notes.cast<DatabaseNote>());
       return note;
     }
   }
@@ -101,7 +107,7 @@ class NotesService {
     final db = _getDatabaseOrThrow();
     final numberOfDeletions = await db.delete(noteTable);
     _notes = [];
-    _notesStreamController.add(_notes.cast<Database>());
+    _notesStreamController.add(_notes.cast<DatabaseNote>());
     return numberOfDeletions;
   }
 
@@ -117,7 +123,7 @@ class NotesService {
       throw CouldNotDeleteNote();
     } else {
       _notes.removeWhere((note) => note.id == id);
-      _notesStreamController.add(_notes.cast<Database>());
+      _notesStreamController.add(_notes.cast<DatabaseNote>());
     }
   }
 
@@ -146,7 +152,7 @@ class NotesService {
     );
 
     _notes.add(note);
-    _notesStreamController.add(_notes.cast<Database>());
+    _notesStreamController.add(_notes.cast<DatabaseNote>());
 
     return note;
   }
