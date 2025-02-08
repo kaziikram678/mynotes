@@ -40,13 +40,13 @@ class NotesService {
   }
 
   Future<DatabaseNote> updateNote({
-    required DatabaseNote note,
+    required DatabaseNote notes,
     required String text,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    await getNote(id: note.id);
+    await getNote(id: notes.id);
 
     final updatesCount = await db.update(
       noteTable,
@@ -59,7 +59,7 @@ class NotesService {
     if (updatesCount == 0) {
       throw CouldNotUpdateNote();
     } else {
-      final updatedNote = await getNote(id: note.id);
+      final updatedNote = await getNote(id: notes.id);
       _notes.removeWhere((note) => note.id == updatedNote.id);
       _notes.add(updatedNote);
       _notesStreamController.add(_notes.cast<Database>());
@@ -310,7 +310,7 @@ class DatabaseNote {
 }
 
 const dbName = 'notes.db';
-const noteTable = 'note';
+const noteTable = 'notes';
 const userTable = 'user';
 const idColumn = 'id';
 const emailColumn = 'email';
