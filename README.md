@@ -2,6 +2,8 @@
 
 Bazar List is a Flutter-based shopping list app. This project covers the fundamentals of Dart and Flutter, as well as advanced topics such as Firebase authentication, local storage, state management, and CRUD operations.
 
+APK Link : https://drive.google.com/drive/folders/1HB5z5KobGa5Wcmd-ddWuXn2m8T2Ttxrv?usp=drive_link
+
  🚀 Features
 - User authentication (Login, Registration, Email Verification)
 - Firebase backend integration
