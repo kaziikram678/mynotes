@@ -18,11 +18,12 @@ class NotesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: notes.length,
       itemBuilder: (context, index) {
-        final note = notes.elementAt(index);
+        final note = notes[index];
         return ListTile(
+          leading: Text('${index + 1}'),
           onTap: () {
             onTap(note);
           },
@@ -43,6 +44,9 @@ class NotesListView extends StatelessWidget {
           ),
         );
       },
+      separatorBuilder: (context,index){
+        return Divider(height: 20, thickness: 1,);
+      },
     );
   }
-}
+} 
