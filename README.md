@@ -1,4 +1,4 @@
-# mynotes
+# BazarList
 
 A new Flutter project.
 
