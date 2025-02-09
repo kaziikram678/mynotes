@@ -1,6 +1,6 @@
 # Bazar List 🛒
 
-Bazar List is a Flutter-based shopping list app that I built by following a comprehensive YouTube tutorial. This project covers the fundamentals of Dart and Flutter, as well as advanced topics such as Firebase authentication, local storage, state management, and CRUD operations.
+Bazar List is a Flutter-based shopping list app. This project covers the fundamentals of Dart and Flutter, as well as advanced topics such as Firebase authentication, local storage, state management, and CRUD operations.
 
  🚀 Features
 - User authentication (Login, Registration, Email Verification)
@@ -25,4 +25,4 @@ Throughout this project, I explored:
 - Implementing local and cloud storage
 - Unit testing in Flutter
 
-This project is a great starting point for anyone looking to build a real-world Flutter application with backend integration. Feel free to fork, contribute, or suggest improvements! 😊
+This project is a great starting point for anyone looking to build a real-world Flutter application with backend integration. Feel free to fork, contribute, or suggest improvements!
